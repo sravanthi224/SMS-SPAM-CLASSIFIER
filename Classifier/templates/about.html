@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About | SpamShield</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" href="/static/images/logo.png" type="image/png">
+
+  <style>
+    :root {
+      --primary: #121212;
+      --card: #2C2C2C;
+      --text: #E0E0E0;
+      --accent: #BB86FC;
+      --accent-hover: #9B59FC;
+      --error: #ff4c4c;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--primary);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Navbar */
+    .navbar {
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  flex-wrap: wrap;
+  animation: slideDown 0.6s ease;
+}
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .navbar ul li a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .navbar ul li a:hover {
+      color: var(--accent);
+    }
+
+    main.about {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: rgba(44, 44, 44, 0.95);
+      border-radius: 12px;
+      animation: fadeIn 1s ease-in;
+      box-shadow: 0 0 15px rgba(187, 134, 252, 0.3);
+      line-height: 1.8;
+    }
+
+    main.about h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      color: var(--accent);
+      text-align: center;
+      margin-bottom: 30px;
+      animation: slideDown 0.7s ease-in;
+    }
+
+    h3 {
+      color: var(--accent);
+      margin-top: 30px;
+      animation: slideLeft 0.8s ease-in-out;
+    }
+
+    p, ul {
+      margin-top: 15px;
+      font-size: 1.05rem;
+      animation: fadeIn 1.2s ease-in;
+    }
+
+    ul {
+      padding-left: 25px;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    footer {
+      background-color: var(--card);
+      text-align: center;
+      padding: 1rem;
+      color: #aaa;
+      font-size: 0.9rem;
+      margin-top: auto;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-40px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideLeft {
+      from {
+        transform: translateX(-30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .navbar ul {
+        flex-direction: column;
+        gap: 0.8rem;
+        margin-top: 0.5rem;
+      }
+
+      main.about {
+        margin: 20px;
+        padding: 20px;
+      }
+
+      main.about h1 {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar h1 a {
+        font-size: 1.5rem;
+      }
+
+      h3 {
+        font-size: 1.2rem;
+      }
+
+      p, li {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <h1>
+  <a href="/">
+    <img src="static/images/logo.png" alt="SpamShield Logo" style="height: 100px;">
+  </a>
+</h1>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/classify">Classifier</a></li>
+        <li><a href="/bulk_upload">Bulk Upload</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/help">Help</a></li>
+        <li><a href="/contact">Contact</a></li>
+        {% if 'username' in session %}
+        <li><a href="/profile">Profile</a></li>
+      <li><a href="/logout">Logout</a></li>
+    {% else %}
+      <li><a href="/login">Login</a></li>
+      <li><a href="/signup">Signup</a></li>
+    {% endif %}
+      </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="about">
+    <h1>About SpamShield</h1>
+
+    <p><strong>SpamShield</strong> is a machine learning-powered web application designed to detect and filter out SMS spam. Built with Python, Scikit-learn, and Flask, our classifier uses a voting ensemble model to make accurate predictions in real-time.</p>
+
+    <h3>How It Works</h3>
+    <ul>
+      <li>Incoming messages are preprocessed using tokenization, stemming, and stopword removal.</li>
+      <li>A <strong>TF-IDF vectorizer</strong> converts text into numerical features.</li>
+      <li>The final prediction is made using a Voting Classifier combining SVM, Naive Bayes, and Extra Trees models.</li>
+    </ul>
+
+    <h3>Features</h3>
+    <ul>
+      <li>Single message classification</li>
+      <li>Bulk CSV upload classification</li>
+      <li>Clean, responsive UI</li>
+      <li>Optional user login for personalization</li>
+    </ul>
+
+    <h3>Technologies Used</h3>
+    <ul>
+      <li>Python + Flask (Backend)</li>
+      <li>Scikit-learn + NLTK (ML & NLP)</li>
+      <li>TF-IDF Vectorization</li>
+      <li>HTML, CSS, JavaScript (Frontend, Dark Theme)</li>
+    </ul>
+
+    <h3>Training Details</h3>
+    <p>The model was trained on a public SMS spam dataset containing 5,574 labeled messages. After thorough preprocessing and vectorization, the ensemble classifier achieved over <strong>95% accuracy</strong> on the test set.</p>
+
+    <h3>Limitations</h3>
+    <ul>
+      <li>Accuracy may drop for non-English, slang-heavy, or code-mixed messages.</li>
+      <li>SpamShield is intended for educational/demo use and is not production-hardened.</li>
+    </ul>
+
+    <h3>Ethical Use</h3>
+    <p>SpamShield is built to show how AI can contribute to safer communication. Please ensure you do not upload confidential or private messages without proper consent.</p>
+
+    <h3>Credits</h3>
+    <p>This project was developed as part of an academic initiative to demonstrate real-world applications of artificial intelligence and natural language processing.</p>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 SpamShield — Built for Education and Awareness.
+  </footer>
+
+</body>
+</html>

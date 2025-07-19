@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SpamShield - Home</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" href="/static/images/logo.png" type="image/png">
+
+  <style>
+    :root {
+      --primary: #121212;
+      --card: #2C2C2C;
+      --text: #E0E0E0;
+      --accent: #BB86FC;
+      --accent-hover: #9B59FC;
+      --error: #ff4c4c;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--primary);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .navbar {
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  flex-wrap: wrap;
+  animation: slideDown 0.6s ease;
+}
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .navbar ul li a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    .navbar ul li a:hover { color: var(--accent); }
+    main {
+      flex: 1;
+      padding: 40px 20px;
+      animation: fadeIn 1s ease-in;
+    }
+    main.hero {
+      text-align: center;
+      padding: 5rem 2rem 4rem;
+      flex: 1;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-family: 'Orbitron', sans-serif;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      animation: slideDown 0.8s ease-in-out;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #ccc;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+      animation: fadeInText 1.4s ease;
+    }
+
+    .banner {
+      width: 200px;
+      margin: 2rem auto 1.5rem;
+      display: block;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(187, 134, 252, 0.4);
+      animation: fadeIn 1.8s ease-in;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.75rem 1.5rem;
+      background-color: var(--accent);
+      color: var(--background);
+      font-weight: bold;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background-color 0.3s, transform 0.3s;
+      animation: pulse 2s infinite;
+    }
+
+    .btn:hover {
+      background-color: var(--accent-hover);
+      transform: scale(1.05);
+    }
+
+    footer {
+      background-color: var(--card);
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+    /* Animations */
+    @keyframes fadeInPage {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-60px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeInText {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+      100% { transform: scale(1); }
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .navbar ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+        margin-top: 1rem;
+      }
+
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .banner {
+        width: 160px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .btn {
+        width: 100%;
+        font-size: 1rem;
+        padding: 0.8rem 0;
+      }
+
+      .hero {
+        padding: 4rem 1rem 2rem;
+      }
+
+      .navbar h1 a {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <nav class="navbar">
+      <h1>
+  <a href="/">
+    <img src="static/images/logo.png" alt="SpamShield Logo" style="height: 100px;">
+    </a>
+  </h1>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/classify">Classifier</a></li>
+        <li><a href="/bulk_upload">Bulk Upload</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/help">Help</a></li>
+        <li><a href="/contact">Contact</a></li>
+        {% if 'username' in session %}
+        <li><a href="/profile">Profile</a></li>
+      <li><a href="/logout">Logout</a></li>
+    {% else %}
+      <li><a href="/login">Login</a></li>
+      <li><a href="/signup">Signup</a></li>
+    {% endif %}
+      </ul>
+
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="hero">
+    <h1>SpamShield</h1>
+    <p><strong>SmartSpamDetector</strong> – Powered by Machine Learning</p>
+    <p>Detect Spam in Seconds</p>
+    <p>AI-powered SMS spam classifier to protect users and improve their experience.</p>
+    <img class="banner" src="static/images/banner.png" alt="Spam Detection Demo">
+    <a class="btn" href="/classify">Try It Now</a>  
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 SpamShield | Developed by Sravanthi
+  </footer>
+
+</body>
+</html>

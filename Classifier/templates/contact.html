@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact | SpamShield</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" href="/static/images/logo.png" type="image/png">
+
+  <style>
+    :root {
+      --background: #121212;
+      --card: #2C2C2C;
+      --text: #E0E0E0;
+      --accent: #BB86FC;
+      --accent-hover: #a160f4;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar {
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  flex-wrap: wrap;
+  animation: slideDown 0.6s ease;
+}
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .navbar ul li a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .navbar ul li a:hover {
+      color: var(--accent);
+    }
+
+    main.classify {
+      flex: 1;
+      max-width: 700px;
+      margin: 3rem auto;
+      padding: 2rem;
+      background-color: rgba(44, 44, 44, 0.95);
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(187, 134, 252, 0.3);
+      animation: fadeIn 1s ease-in;
+    }
+
+    .contact-title {
+      text-align: center;
+      color: var(--accent);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 30px;
+      animation: fadeIn 1s ease;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      background-color: #1a1a1a;
+      color: var(--text);
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      resize: none;
+      transition: 0.3s ease-in-out;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      background-color: var(--accent);
+      color: var(--background);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      animation: fadeIn 1.5s ease-in;
+    }
+
+    button[type="submit"]:hover {
+      background-color: var(--accent-hover);
+      transform: scale(1.03);
+    }
+
+    footer {
+      background-color: var(--card);
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #aaa;
+      margin-top: auto;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .navbar ul {
+        flex-direction: column;
+        gap: 0.8rem;
+        margin-top: 0.5rem;
+      }
+
+      main.classify {
+        margin: 1.5rem;
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar h1 a {
+        font-size: 1.6rem;
+      }
+
+      .contact-title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <h1>
+  <a href="/">
+    <img src="static/images/logo.png" alt="SpamShield Logo" style="height: 100px;">
+  </a>
+</h1>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/classify">Classifier</a></li>
+        <li><a href="/bulk_upload">Bulk Upload</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/help">Help</a></li>
+        <li><a href="/contact">Contact</a></li>
+        {% if 'username' in session %}
+        <li><a href="/profile">Profile</a></li>
+      <li><a href="/logout">Logout</a></li>
+    {% else %}
+      <li><a href="/login">Login</a></li>
+      <li><a href="/signup">Signup</a></li>
+    {% endif %}
+      </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="classify">
+    <h2 class="contact-title">Contact Us</h2>
+
+    <!-- Flash message block -->
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div style="margin-bottom: 15px; padding: 10px; background-color: #1e1e1e; color: #00ffa2; border-radius: 8px; font-weight: bold; text-align: center;">
+        {{ messages[0] }}
+      </div>
+    {% endif %}
+  {% endwith %}
+  
+    <form method="POST" action="/submit_feedback">
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name" placeholder="Enter your name" required>
+
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" placeholder="Enter your email" required>
+
+      <label for="message">Message</label>
+      <textarea name="message" id="message" rows="5" placeholder="Type your message..." required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 SpamShield — Built with care and code.
+  </footer>
+
+</body>
+</html>

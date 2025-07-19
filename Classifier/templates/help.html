@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Help | SpamShield</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" href="/static/images/logo.png" type="image/png">
+
+  <style>
+    :root {
+      --background: #121212;
+      --card: #2C2C2C;
+      --text: #E0E0E0;
+      --accent: #BB86FC;
+      --accent-hover: #9B59FC;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .navbar {
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  flex-wrap: wrap;
+  animation: slideDown 0.6s ease;
+}
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+    }
+
+    .navbar ul li a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .navbar ul li a:hover {
+      color: var(--accent);
+    }
+
+    main.help {
+      max-width: 1000px;
+      margin: 3rem auto;
+      padding: 2rem;
+      background-color: rgba(44, 44, 44, 0.95);
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(187, 134, 252, 0.3);
+      animation: fadeIn 1s ease-in-out;
+      line-height: 1.8;
+    }
+
+    main.help h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      font-family: 'Orbitron', sans-serif;
+      color: var(--accent);
+      margin-bottom: 30px;
+      animation: fadeIn 1s ease-in;
+    }
+
+    h3 {
+      color: var(--accent);
+      margin-top: 25px;
+      animation: slideLeft 0.5s ease;
+    }
+
+    p {
+      margin-top: 10px;
+      font-size: 1.05rem;
+      animation: fadeIn 1.2s ease-in;
+    }
+
+    code {
+      background-color: #1e1e1e;
+      padding: 0.1rem 0.3rem;
+      border-radius: 5px;
+      font-family: monospace;
+      color: var(--accent);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    footer {
+      background-color: var(--card);
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #aaa;
+      margin-top: auto;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .navbar h1 {
+        margin-bottom: 0.5rem;
+      }
+
+      .navbar ul {
+        flex-direction: column;
+        gap: 0.8rem;
+        margin-top: 0.5rem;
+      }
+
+      main.help {
+        margin: 1.5rem;
+        padding: 1.5rem;
+      }
+
+      main.help h1 {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar h1 a {
+        font-size: 1.5rem;
+      }
+
+      h3 {
+        font-size: 1.2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <h1>
+  <a href="/">
+    <img src="static/images/logo.png" alt="SpamShield Logo" style="height: 100px;">
+  </a>
+</h1>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/classify">Classifier</a></li>
+        <li><a href="/bulk_upload">Bulk Upload</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/help">Help</a></li>
+        <li><a href="/contact">Contact</a></li>
+        {% if 'username' in session %}
+        <li><a href="/profile">Profile</a></li>
+      <li><a href="/logout">Logout</a></li>
+    {% else %}
+      <li><a href="/login">Login</a></li>
+      <li><a href="/signup">Signup</a></li>
+    {% endif %}
+      </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="help">
+    <h1>Help & FAQs</h1>
+
+    <h3>1. What is SpamShield?</h3>
+    <p>SpamShield is a machine learning-powered web app that classifies SMS messages as either "Spam" or "Ham" (not spam) using natural language processing and ensemble models.</p>
+
+    <h3>2. How accurate is the spam detection?</h3>
+    <p>The model achieves over <strong>95% accuracy</strong> on the test set from the dataset it was trained on. However, it may not perform as well on messages with slang, code-mixed text, or other languages.</p>
+
+    <h3>3. Do you store the messages I submit?</h3>
+    <p>No, SpamShield does not store or share any messages. All processing is done temporarily in-memory during your session for classification purposes only.</p>
+
+    <h3>4. Can I use this for business or production?</h3>
+    <p>SpamShield is designed for educational and demo purposes only. For commercial or production use, we recommend further model validation, optimization, and security audits.</p>
+
+    <h3>5. What format should the bulk upload file follow?</h3>
+    <p>Please upload a <code>.csv</code> file with a column named <code>message</code> containing SMS texts only. You can <a href="static/files/sms.csv" download>download a sample here</a>.</p>
+    <p>Please upload a <code>.txt</code> file containing SMS texts only. You can <a href="static/files/sms.txt" download>download a sample here</a>.</p>
+
+    <h3>6. What if the classifier is wrong?</h3>
+    <p>While we strive for high accuracy, no model is perfect. You can always rephrase the message or report feedback through our <a href="/contact">Contact page</a>.</p>
+    
+    <h3>7. Which technologies were used?</h3>
+    <p>SpamShield uses <strong>Python</strong>, <strong>Flask</strong>, <strong>Scikit-learn</strong>, <strong>TF-IDF</strong>, and a Voting Classifier (SVM + Naive Bayes + Extra Trees), styled using HTML, CSS, and JavaScript.</p>
+
+    <h3>8. How do I classify a single message?</h3>
+    <p>Go to the <a href="/classify">Classify</a> page, enter your SMS text, and click "Classify" to see the result instantly.</p>
+
+    <h3>9. How do I classify multiple messages at once?</h3>
+    <p>Go to the <a href="/bulk_upload">Bulk Upload</a> page and upload a CSV file with your messages. The model will classify all of them for you.</p>
+
+    <h3>10. Is login required?</h3>
+    <p>Login is optional. You can use all features without logging in, but user accounts may let you save your history in future updates.</p>
+
+    <h3>11. Who can I contact for support?</h3>
+    <p>Use the <a href="/contact">Contact</a> page to send us feedback or questions. We'll be happy to help!</p>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 SpamShield — Helping You Stay Spam-Free.
+  </footer>
+
+</body>
+</html>
